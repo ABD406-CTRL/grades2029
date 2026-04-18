@@ -47,8 +47,7 @@ def search():
         return render_template('student.html', s=student)
     return "<h3>الطالب غير موجود</h3><a href='/'>رجوع</a>"
 
-if __name__ == '__main__': # تصحيح بسيط لـ name
-  # هاد التعديل ضروري عشان يشتغل على المواقع العالمية
+if __name__ == "__main__":
     import os
     port = int(os.environ.get("PORT", 5000))
-   app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=port)
