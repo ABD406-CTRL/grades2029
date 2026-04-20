@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <title>الملف الأكاديمي الشامل</title>
+    <style>
+        /* تناسق الألوان مع الواجهة الكحلية */
+        :root { 
+            --primary: #0b3d66; 
+            --secondary: #1a5276; 
+            --accent: #3498db; 
+            --gold: #f1c40f; 
+            --success: #27ae60; 
+            --danger: #e74c3c; 
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            background: #f0f4f8; 
+            margin: 0; padding: 20px; color: #333; 
+        }
+
+        .container { 
+            max-width: 1200px; margin: auto; background: white; 
+            padding: 25px; border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            border-top: 8px solid var(--primary);
+        }
+        
+        /* الهيدر الجديد */
+        .header-card { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 20px; background: #fff; padding: 20px; 
+            border-radius: 12px; border: 1px solid #e0e6ed; 
+            margin-bottom: 20px; 
+        }
+        
+        .header-item b { color: var(--secondary); display: block; font-size: 0.85em; margin-bottom: 5px; }
+        .header-item span { font-size: 1.1em; font-weight: bold; color: var(--primary); }
+
+        /* شريط المعدلات */
+        .top-rates { display: flex; gap: 15px; margin-bottom: 25px; flex-wrap: wrap; justify-content: center; }
+        .rate-badge { 
+            background: var(--primary); color: white; padding: 10px 20px; 
+            border-radius: 10px; font-size: 0.9em; box-shadow: 0 4px 10px rgba(11, 61, 102, 0.2);
+        }
+        .rate-badge b { color: var(--gold); font-size: 1.2em; margin-right: 5px; }
+
+        /* التبويبات */
+        .tabs { display: flex; border-bottom: 3px solid #eee; margin-bottom: 25px; gap: 5px; }
+        .tab-btn { 
+            padding: 12px 30px; cursor: pointer; border: none; 
+            background: #e0e6ed; border-radius: 10px 10px 0 0; 
+            font-weight: bold; color: #7f8c8d; transition: 0.3s;
+        }
+        .tab-btn.active { background: var(--primary); color: white; }
+
+        /* الجداول */
+        .section-box { 
+            margin-bottom: 30px; border: 1px solid #eee; 
+            border-radius: 12px; overflow: hidden; 
+        }
+        .section-header { 
+            background: var(--secondary); color: white; 
+            padding: 12px 20px; font-weight: bold; 
+            display: flex; justify-content: space-between; 
+        }
+        
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f8f9fa; color: var(--primary); padding: 15px; font-size: 0.9em; border-bottom: 2px solid #dee2e6; }
+        td { padding: 15px; border-bottom: 1px solid #f1f1f1; text-align: center; }
+        
+        .grade-box { 
+            display: inline-block; padding: 5px 10px; 
+            border: 1px solid #ddd; border-radius: 6px; 
+            background: #fff; font-weight: bold; color: var(--primary);
+        }
+        
+        .final-box { 
+            padding: 8px 15px; border-radius: 8px; 
+            font-weight: bold; color: white; min-width: 45px; display: inline-block;
+        }
+        .pass { background: var(--success); }
+        .fail { background: var(--danger); }
+
+        .back-link {
+            display: inline-block; margin-top: 30px; 
+            text-decoration: none; color: var(--accent); 
+            font-weight: bold; border: 2px solid var(--accent);
+            padding: 10px 25px; border-radius: 25px;
+            transition: 0.3s;
+        }
+        .back-link:hover { background: var(--accent); color: white; }
+    </style>
+</head>
+<body>
+
+{% macro render_subject(name, extra_col, prac, theory, final) %}
+    <tr>
+        <td style="text-align: right; font-weight: bold;">{{ name }}</td>
+<td>{% if prac and prac != "-" %}<span class="grade-box">{{ prac }}</span>{% else %}-{% endif %}</td>
+        <td>{% if theory and theory != "-" %}<span class="grade-box">{{ theory }}</span>{% else %}-{% endif %}</td>
+        <td>
+            {% set f_val = final|float(0) %}
+            <span class="final-box {{ 'fail' if f_val < 60 and f_val > 0 else 'pass' if f_val >= 60 else '' }}">
+                {{ final }}
+            </span>
+        </td>
+    </tr>
+{% endmacro %}
+
+<div class="container">
+    <div class="header-card">
+        <div class="header-item"><b>اسم الطالب</b><span>{{ s[5] }}</span></div>
+        <div class="header-item"><b>الرقم الجامعي</b><span>{{ s[0] }}</span></div>
+        <div class="header-item"><b>اسم الأم</b><span>{{ s[4] }}</span></div>
+    </div>
+
+    <div class="top-rates">
+        <div class="rate-badge">معدل الفرز: <b>{{ s[134] }}</b></div>
+        <div class="rate-badge">معدل السنة الثانية: <b>{{ s[139] }}</b></div>
+        <div class="rate-badge">المعدل الحالي: <b>{{ s[138] }}</b></div>
+    </div>
+
+    <div class="tabs">
+        <div class="tab-btn active" onclick="openTab(event, 'y1')">التحضيرية</div>
+        <div class="tab-btn" onclick="openTab(event, 'y2')">السنة الثانية</div>
+        <div class="tab-btn" onclick="openTab(event, 'y3')">السنة الثالثة</div>
+    </div>
+
+    <div id="y1" class="tab-content active">
+        <div class="section-box">
+            <div class="section-header">الفصل الدراسي الأول <span>المعدل: {{ s[30] }}</span></div>
+            <table>
+                <tr><th style="text-align:right;">المادة</th><th>عملي</th><th>نظري</th><th>النهائية</th></tr>
+                {{ render_subject("Biology", s[10], s[13], s[12], s[15]) }}
+                {{ render_subject("Physics", s[17], s[20], s[19], s[22]) }}
+                {{ render_subject("Chemistry", s[23], s[26], s[25], s[28]) }}
+            </table>
+        </div>
+    </div>
+
+    <center>
+        <a href="/" class="back-link">← العودة للبحث العام</a>
+    </center>
+</div>
+
+<script>
+    function openTab(evt, name) {
+        var i, content, btns;
+        content = document.getElementsByClassName("tab-content");
+        for (i = 0; i < content.length; i++) content[i].style.display = "none";
+        btns = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < btns.length; i++) btns[i].className = btns[i].className.replace(" active", "");
+        document.getElementById(name).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+</body>
+</html>
