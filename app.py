@@ -26,7 +26,9 @@ def search():
     
     student_row = df[mask]
     if not student_row.empty:
-        return render_template('student.html', s=student_row.iloc[0].tolist())
+        # نمرر رقم السطر index ومصفوفة الطالب s
+        student_index = student_row.index[0]
+        return render_template('student.html', s=student_row.iloc[0].tolist(), student_index=student_index)
     return "<h3>الطالب غير موجود</h3><a href='/'>رجوع</a>"
 
 @app.route('/sort', methods=['POST'])
@@ -37,7 +39,12 @@ def sort_students():
         # تحويل العمود لأرقام للفرز الصحيح
         df[col_index] = pd.to_numeric(df[col_index], errors='coerce')
         df_sorted = df.dropna(subset=[col_index]).sort_values(by=col_index, ascending=False)
-        results = df_sorted.values.tolist()
+        
+        # نرسل النتيجة مع الـ index الخاص بكل طالب
+        results = []
+        for idx, row in df_sorted.iterrows():
+            results.append({'index': idx, 'data': row.tolist()})
+            
         return render_template('index.html', results=results, sorted_col=col_index)
     except Exception as e:
         return f"خطأ تقني: {e}"
@@ -47,16 +54,20 @@ def student_details(student_id):
     df = load_data()
     student_row = df[df[0].astype(str) == str(student_id)]
     if not student_row.empty:
-        return render_template('student.html', s=student_row.iloc[0].tolist())
+        student_index = student_row.index[0]
+        return render_template('student.html', s=student_row.iloc[0].tolist(), student_index=student_index)
     return "<h3>بيانات الطالب غير موجودة</h3><a href='/'>رجوع</a>"
+
+# مسار كشف العلامات الرسمي (تم نقله قبل تشغيل التشغيل الرئيسي)
+@app.route('/transcript/<int:student_index>')
+def get_transcript(student_index):
+    try:
+        df = load_data()
+        student_row = df.iloc[student_index].values  
+        return render_template('transcript.html', row=student_row)
+    except Exception as e:
+        return f"<h3>حدث خطأ في تحميل الكشف: {e}</h3><a href='/'>رجوع</a>"
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
-@app.route('/transcript/<int:student_index>')
-def get_transcript(student_index):
-    # جلب بيانات الطالب من ملف الإكسل حسب رقم السطر
-    # df هو متغير البيانات (Dataframe) اللي عندك بالموقع
-    student_row = df.iloc[student_index].values  
-    
-    return render_template('transcript.html', row=student_row)
