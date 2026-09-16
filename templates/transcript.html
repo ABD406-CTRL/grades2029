@@ -1,1 +1,219 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>كشف بالمقررات والدرجات - جامعة حمص</title>
+    <style>
+        @page {
+            size: A4 portrait;
+            margin: 10mm;
+        }
+        body {
+            font-family: 'Traditional Arabic', 'Amiri', 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #000;
+            background-color: #fff;
+            font-size: 11pt;
+            direction: rtl;
+        }
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 10px;
+        }
+        .header-table td {
+            vertical-align: middle;
+            text-align: center;
+            border: none;
+            padding: 2px;
+        }
+        .logo {
+            width: 80px;
+            height: auto;
+        }
+        .title-box {
+            text-align: center;
+            margin: 10px 0 15px 0;
+            font-weight: bold;
+            font-size: 14pt;
+            text-decoration: underline;
+        }
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+            font-size: 11pt;
+        }
+        .info-table td {
+            padding: 3px 6px;
+            border: none;
+        }
+        .grades-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 9.5pt;
+        }
+        .grades-table th, .grades-table td {
+            border: 1px solid #000;
+            padding: 4px 2px;
+        }
+        .grades-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .section-header {
+            background-color: #e6e6e6;
+            font-weight: bold;
+            text-align: right;
+            padding-right: 8px !important;
+        }
+        .en-text {
+            direction: ltr;
+            unicode-bidi: embed;
+            font-family: 'Calibri', 'Arial', sans-serif;
+            font-size: 9pt;
+        }
+        .footer-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            text-align: center;
+            font-size: 11pt;
+            font-weight: bold;
+        }
+        .footer-table td {
+            border: none;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- الترويسة الرئيسية -->
+    <table class="header-table">
+        <tr>
+            <td style="width: 35%; text-align: right;">
+                <strong>الجمهورية العربية السورية</strong><br>
+                جامعة حمص<br>
+                كلية الطب البشري<br>
+                مديرية الشؤون التعليمية
+            </td>
+            <td style="width: 30%;">
+                <!-- ضع مسار شعار جامعة حمص هنا -->
+                <img src="homs_university_logo.png" alt="شعار جامعة حمص" class="logo" onerror="this.style.display='none'">
+            </td>
+            <td style="width: 35%; text-align: left;" class="en-text">
+                <strong>Syrian Arab Republic</strong><br>
+                Homs University<br>
+                Faculty of Medicine<br>
+                Directorate of Educational Affairs
+            </td>
+        </tr>
+    </table>
+
+    <div class="title-box">
+        كشف بالمقررات والدرجات<br>
+        <span class="en-text" style="font-size: 11pt; font-weight: normal;">Transcript of Records</span>
+    </div>
+
+    <!-- معلومات الطالب -->
+    <table class="info-table">
+        <tr>
+            <td><strong>اسم الطالب:</strong> {{ row[5] }}</td>
+            <td style="text-align: left;"><strong>سنة التسجيل:</strong> 2023-2024</td>
+        </tr>
+    </table>
+
+    <!-- جدول العلامات -->
+    <table class="grades-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">#</th>
+                <th style="width: 65%;">المادة / Subject</th>
+                <th style="width: 15%;">الدرجة رقماً<br><span class="en-text">Grade</span></th>
+                <th style="width: 15%;">النتيجة<br><span class="en-text">Result</span></th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- السنة الأولى (التحضيرية) -->
+            <tr>
+                <td colspan="4" class="section-header">السنة الأولى (التحضيرية) - First Year (Preparatory Year)</td>
+            </tr>
+            <tr><td>1</td><td style="text-align: right;">تاريخ العلوم الطبية / History of Medical Sciences</td><td>{{ row[167] }}</td><td> ناجح </td></tr>
+            <tr><td>2</td><td style="text-align: right;">الكيمياء / Chemistry</td><td>{{ row[176] }}</td><td> ناجح </td></tr>
+            <tr><td>3</td><td style="text-align: right;">الفيزياء / Physics</td><td>{{ row[173] }}</td><td> ناجح </td></tr>
+            <tr><td>4</td><td style="text-align: right;">بيولوجيا الخلية / Cell Biology</td><td>{{ row[170] }}</td><td> ناجح </td></tr>
+            <tr><td>5</td><td style="text-align: right;">لغة إنكليزية (1) / English Language (1)</td><td>{{ row[166] }}</td><td> ناجح </td></tr>
+            <tr><td>6</td><td style="text-align: right;">الفيزيولوجيا / Physiology</td><td>{{ row[187] }}</td><td> ناجح </td></tr>
+            <tr><td>7</td><td style="text-align: right;">علم الوراثة / Genetics</td><td>{{ row[181] }}</td><td> ناجح </td></tr>
+            <tr><td>8</td><td style="text-align: right;">لغة إنكليزية (2) / English Language (2)</td><td>{{ row[180] }}</td><td> ناجح </td></tr>
+            <tr><td>9</td><td style="text-align: right;">التشريح / Anatomy</td><td>{{ row[184] }}</td><td> ناجح </td></tr>
+            <tr><td>10</td><td style="text-align: right;">الإحصاء الحيوي / Biostatistics</td><td>{{ row[179] }}</td><td> ناجح </td></tr>
+            <tr style="font-weight: bold; background-color: #fafafa;">
+                <td colspan="2" style="text-align: right;">معدل السنة الأولى (التحضيرية)</td>
+                <td colspan="2">{{ row[191] }}</td>
+            </tr>
+
+            <!-- السنة الثانية -->
+            <tr>
+                <td colspan="4" class="section-header">السنة الثانية - Second Year</td>
+            </tr>
+            <tr><td>1</td><td style="text-align: right;">الكيمياء الحيوية الطبية والبيولوجيا الجزيئية / Medical Biochemistry and Molecular Biology</td><td>{{ row[68] }}</td><td> ناجح </td></tr>
+            <tr><td>2</td><td style="text-align: right;">اللغة العربية / Arabic Language</td><td>{{ row[73] }}</td><td> ناجح </td></tr>
+            <tr><td>3</td><td style="text-align: right;">الثقافة القومية الاشتراكية / National Socialist Culture</td><td>{{ row[75] }}</td><td> ناجح </td></tr>
+            <tr><td>4</td><td style="text-align: right;">علم النسج (1) / Histology (1)</td><td>{{ row[65] }}</td><td> ناجح </td></tr>
+            <tr><td>5</td><td style="text-align: right;">التشريح (1) / Anatomy (1)</td><td>{{ row[71] }}</td><td> ناجح </td></tr>
+            <tr><td>6</td><td style="text-align: right;">علم النفس السلوكي / Behavioural Psychology</td><td>{{ row[74] }}</td><td> ناجح </td></tr>
+            <tr><td>7</td><td style="text-align: right;">لغة إنكليزية (3) / English Language (3)</td><td>{{ row[72] }}</td><td> ناجح </td></tr>
+            <tr><td>8</td><td style="text-align: right;">التشريح (2) / Anatomy (2)</td><td>{{ row[81] }}</td><td> ناجح </td></tr>
+            <tr><td>9</td><td style="text-align: right;">علم الجنين الطبي / Medical Embryology</td><td>{{ row[92] }}</td><td> ناجح </td></tr>
+            <tr><td>10</td><td style="text-align: right;">الفيزيولوجيا الطبية (1) / Medical Physiology (1)</td><td>{{ row[84] }}</td><td> ناجح </td></tr>
+            <tr><td>11</td><td style="text-align: right;">علم النسج (2) / Histology (2)</td><td>{{ row[89] }}</td><td> ناجح </td></tr>
+            <tr><td>12</td><td style="text-align: right;">الكيمياء الحيوية الطبية والسريرية (1) / Medical and Clinical Biochemistry (1)</td><td>{{ row[78] }}</td><td> ناجح </td></tr>
+            <tr><td>13</td><td style="text-align: right;">مهارات التواصل / Communication Skills</td><td>{{ row[85] }}</td><td> ناجح </td></tr>
+            <tr><td>14</td><td style="text-align: right;">لغة إنكليزية (4) / English Language (4)</td><td>{{ row[86] }}</td><td> ناجح </td></tr>
+            <tr style="font-weight: bold; background-color: #fafafa;">
+                <td colspan="2" style="text-align: right;">معدل السنة الثانية</td>
+                <td colspan="2">{{ row[139] }}</td>
+            </tr>
+
+            <!-- السنة الثالثة -->
+            <tr>
+                <td colspan="4" class="section-header">السنة الثالثة - Third Year</td>
+            </tr>
+            <tr><td>1</td><td style="text-align: right;">التشريح (3) / Anatomy (3)</td><td>{{ row[109] }}</td><td> ناجح </td></tr>
+            <tr><td>2</td><td style="text-align: right;">الكيمياء الحيوية الطبية والسريرية (2) / Medical and Clinical Biochemistry (2)</td><td>{{ row[117] }}</td><td> ناجح </td></tr>
+            <tr><td>3</td><td style="text-align: right;">الفيزيولوجيا الطبية (2) / Medical Physiology (2)</td><td>{{ row[113] }}</td><td> ناجح </td></tr>
+            <tr><td>4</td><td style="text-align: right;">مهارات سريرية / Clinical Skills</td><td>{{ row[121] }}</td><td> ناجح </td></tr>
+            <tr><td>5</td><td style="text-align: right;">الأحياء الدقيقة (1) / Microbiology (1)</td><td>{{ row[125] }}</td><td> ناجح </td></tr>
+            <tr><td>6</td><td style="text-align: right;">الوبائيات ومنهجية البحث والإحصاء الطبي / Epidemiology, Scientific Research & Medical Statistics</td><td>{{ row[128] }}</td><td> ناجح </td></tr>
+            <tr><td>7</td><td style="text-align: right;">أخلاقيات الممارسة الطبية وتشريعاتها / Ethics of Medical Practice and Its Legislations</td><td>{{ row[105] }}</td><td> ناجح </td></tr>
+            <tr><td>8</td><td style="text-align: right;">علم الأمراض (1) / Pathology (1)</td><td>{{ row[143] }}</td><td> ناجح </td></tr>
+            <tr><td>9</td><td style="text-align: right;">الأحياء الدقيقة (2) / Microbiology (2)</td><td>{{ row[152] }}</td><td> ناجح </td></tr>
+            <tr><td>10</td><td style="text-align: right;">مهارات جراحية وإسعافية / Surgical and Emergency Skills</td><td>{{ row[160] }}</td><td> ناجح </td></tr>
+            <tr><td>11</td><td style="text-align: right;">علم الأدوية العام / General Pharmacology</td><td>{{ row[155] }}</td><td> ناجح </td></tr>
+            <tr><td>12</td><td style="text-align: right;">الصحة العامة والمهنية / Public and Occupational Health</td><td>{{ row[146] }}</td><td> ناجح </td></tr>
+            <tr><td>13</td><td style="text-align: right;">الطب المسند بالدليل / Evidence-Based Medicine</td><td>{{ row[149] }}</td><td> ناجح </td></tr>
+            <tr><td>14</td><td style="text-align: right;">علم المناعة ومخبريات الدم / Immunology and Blood Analysis</td><td>{{ row[157] }}</td><td> ناجح </td></tr>
+            <tr style="font-weight: bold; background-color: #fafafa;">
+                <td colspan="2" style="text-align: right;">معدل السنة الثالثة</td>
+                <td colspan="2">{{ row[194] }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- التواضيع والختام -->
+    <table class="footer-table">
+        <tr>
+            <td>منظم الكشف</td>
+            <td>رئيس شعبة الامتحانات</td>
+            <td>مدير الشؤون التعليمية</td>
+            <td>عميد كلية الطب البشري</td>
+        </tr>
+    </table>
+
+</body>
+</html>
