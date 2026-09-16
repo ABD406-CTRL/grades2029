@@ -1,18 +1,177 @@
 <!DOCTYPE html>
 <html dir="rtl">
 <head>
-    <title>نظام البحث عن الطلاب</title>
+    <meta charset="UTF-8">
+    <title>نظام إدارة درجات الطلاب</title>
     <style>
-        body { font-family: Arial; text-align: center; padding-top: 50px; background: #f4f7f6; }
-        input { padding: 10px; width: 250px; border-radius: 5px; border: 1px solid #ddd; }
-        button { padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        body { background-color: #0b3d66; color: white; font-family: 'Segoe UI', Tahoma; text-align: center; padding-top: 50px; }
+        .search-box { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; border: 1px solid #3498db; display: inline-block; }
+        input { padding: 12px; width: 250px; border-radius: 8px; border: none; }
+        button { padding: 12px 25px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; }
+        .btn-search { background: #3498db; color: white; }
+        .btn-sort { background: #27ae60; color: white; }
+        table { width: 90%; margin: 30px auto; border-collapse: collapse; background: rgba(0,0,0,0.3); }
+        th { background: #1a5276; color: #add8e6; padding: 15px; border: 1px solid #3498db; }
+        td { padding: 12px; border: 1px solid rgba(255,255,255,0.1); }
+        .details-btn { background: white; color: #0b3d66; padding: 5px 10px; border-radius: 5px; text-decoration: none; font-size: 0.9em; }
     </style>
 </head>
 <body>
-    <h1>🎓نظام إدارة درجات الطلاب</h1>
-    <form action="/search" method="post">
-        <input type="text" name="student_id" placeholder="أدخل الرقم الجامعي أو الامتحاني..." required>
-        <button type="submit">بحث</button>
-    </form>
+    <h1>🎓 نظام إدارة درجات الطلاب - دفعة 2029</h1>
+    
+    <div class="search-box">
+        <form action="/search" method="post" style="margin-bottom: 20px;">
+            <input type="text" name="student_id" placeholder="الرقم الجامعي أو الاسم..." required>
+            <button type="submit" class="btn-search">بحث</button>
+        </form>
+
+        <form action="/sort" method="post">
+            <select name="column_index" style="padding: 10px; border-radius: 5px;">
+                <option value="138">المعدل الحالي</option>
+                <option value="139">معدل السنة الثانية النهائي</option>
+                <option value="194">معدل السنة الثالثة النهائي</option>
+                <option value="134">معدل الفرز</option> 
+                <option value="54">درجة البكالوريا</option>
+                 <option value="30">معدل الفصل الأول تحضيرية</option>
+                <option value="178">  معدل الفصل الأول تحضيرية الجامعي</option>
+                <option value="189">معدل الفصل الثاني تحضيرية الجامعي</option>
+                <option value="47">معدل الفصل الثاني تحضيرية</option>
+                <option value="191">معدل التحضيرية الجامعي</option>
+                <option value="49">معدل التحضيرية </option>
+                <option value="135">معدل الفصل الأول سنة ثانية</option>
+                <option value="136">معدل الفصل الثاني سنة ثانية</option>
+                <option value="137">معدل الفصل الأول السنة الثالثة</option>
+                <option value="193">معدل الفصل الثاني السنة الثالثة</option>
+                <option value="10">Biology</option>
+                <option value="17">Physics</option>
+                <option value="23">Chemistry</option>
+                <option value="167">History</option>
+                <option value="166">English 1</option>
+                <option value="34">Anatomy</option>
+                <option value="181">Genetics</option>
+                <option value="40">Physiology</option>
+                <option value="180">English 2</option>
+                <option value="179">medical statistics</option>
+                <option value="170">biology finl</option>
+                <option value="173">physics final</option>
+                <option value="176">chemistry final</option>
+                <option value="184">Anatomy final</option>
+                <option value="187">physiology final</option>
+                <option value="65"> نسج1 </option>
+                <option value="68">كيمياء حيوية</option>
+                <option value="71">تشريح 1</option>
+                <option value="75">ثقافة</option>
+                <option value="74">علم النفس السلوكي</option>
+                <option value="72">English 3</option>
+                <option value="73">لغة عربية</option>
+                <option value="81">تشريح 2</option>
+                <option value="78">كيمياء سريرية 1</option>
+                <option value="84">فيزيولوجيا طبية 1</option>
+                <option value="89">نسج 2</option>
+                <option value="92">جنين طبي</option>
+                <option value="85">مهارات تواصل</option>
+                <option value="86">English 4</option>
+                <option value="109">تشريح 3</option>
+                <option value="128">وبائيات ومنهجية</option>
+                <option value="125">أحياء دقيقة 1</option>
+                <option value="113">فيزيولوجيا طبية 2</option>
+                <option value="117">كيمياء سريرية 2</option>
+                <option value="105">أخلاقيات المهنة</option>
+                <option value="121">مهارات سريرية</option>  
+                <option value="157">المناعة </option>
+                <option value="160">المهارات الجراحية </option>
+                <option value="155">الأدوية </option>
+                <option value="149">الطب المسند </option>
+                <option value="152">الأحياء 2 </option>
+                <option value="143">الأمراض 1 </option>
+                <option value="146">الصحة العامة </option>       
+                <option value="171">عملي الفيزياء</option>
+                <option value="174">عملي الكيمياء</option>
+                <option value="168">عملي البيولوجيا</option>
+                <option value="182">عملي التشريح</option>
+                <option value="185">عملي الفيزيولوجيا</option>
+                <option value="63">عملي نسج1</option>
+                <option value="69">عملي تشريح1</option>
+                <option value="66">عملي كيمياء حيوية</option>
+                <option value="76">عملي كيمياء سريرية 1</option>
+                <option value="79">عملي تشريح 2</option>
+                <option value="87">عملي نسج 2</option>
+                <option value="90">عملي جنين طبي</option>
+                <option value="82">عملي الفيزيولوجيا 1</option>
+                <option value="123">عملي الأحياء الدقيقة 1</option>
+                <option value="115">عملي الكيمياء السريرية 2</option>
+                <option value="126">عملي الوبائيات ومنهجية</option>
+                <option value="119">عملي المهارات السريرية</option>
+                <option value="111">عملي الفيزيولوجيا 2</option>
+                <option value="107">عملي تشريح 3</option>
+                <option value="141">عملي الأمراض1 </option>
+                <option value="147">عملي الطب المسند </option>
+                <option value="144">عملي الصحة العامة </option>
+                <option value="153">عملي الأدوية </option>
+                <option value="150">عملي الأحياء 2 </option>
+                <option value="158">عملي المهارات الجراحية </option>       
+                <option value="172">نظري الفيزياء </option>
+                <option value="175">نظري الكيمياء</option>
+                <option value="169">نظري البيولوجيا</option>
+                 <option value="183">نظري التشريح</option>
+                <option value="186">نظري الفيزيولوجيا</option>
+                <option value="64">نظري النسج 1</option>
+                <option value="70">نظري التشريح1</option>
+                <option value="67">نظري الكيمياء الحيوية</option>
+                <option value="80">نظري التشريح 2</option>
+                <option value="77">نظري الكيمياء السريرية 1</option>
+                <option value="83">نظري الفيزبولوجبا 1</option>
+                <option value="88">نظري النسج 2</option>
+                <option value="91">نظري الجنين الطبي</option>
+                <option value="108">نظري التشريح 3</option>
+                <option value="127">نظري الوبائيات والمنهجية</option>
+                <option value="124">نظري الأحياء الدقيقة 1</option>
+                <option value="112">نظري الفيزيولوجيا 2</option>
+                <option value="116">نظري الكيمياء السريرية 2</option>
+                <option value="120">نظري المهارات السريرية</option>
+                <option value="142">نظري الأمراض1 </option>
+                <option value="145">نظري الصحة العامة </option>
+                <option value="148">نظري الطب المسند </option>
+                <option value="154">نظري الأدوية </option>
+                <option value="151">نظري الأحياء 2 </option>
+                <option value="159">نظري المهارات الجراحية </option>
+
+           </select>
+            <button type="submit" class="btn-sort">فرز وترتيب </button>
+        </form>
+    </div>
+
+    {% if results %}
+    <table>
+         <thead>
+    <tr>
+        <th>الترتيب</th>
+        <th>الرقم الجامعي</th>
+        <th>الاسم الكامل</th>
+        <th>المجموع</th> <th>المعدل/الدرجة</th>
+        <th>التفاصيل</th>
+    </tr>
+</thead>
+      <tbody>
+    {% for row in results %}
+    <tr>
+        <td><b>{{ loop.index }}</b></td> <td>{{ row[0] }}</td>           <td>{{ row[5] }}</td>           <td style="color: #f39c12; font-weight: bold;">
+                 {% if sorted_col == 138 %}
+                {{ row[132] }} {% elif sorted_col == 53 %}
+                {{ row[51] }}  {% elif sorted_col == 49 %}
+                {{ row[48] }} {% elif sorted_col == 47 %}
+                {{ row[46] }} {% elif sorted_col == 30 %}
+                {{ row[29] }} {% elif sorted_col == 135 %}
+                {{ row[93] }} {% elif sorted_col == 136 %}
+                {{ row[94] }} {% elif sorted_col == 130 %}
+                {{ row[129] }} {% else %}
+                - {% endif %}
+        </td>
+        <td style="color: #2ecc71; font-weight: bold;">{{ row[sorted_col] }}</td> <td><a href="/student/{{ row[0] }}" class="details-btn">عرض التفاصيل ←</a></td>
+    </tr>
+    {% endfor %}
+       </tbody>
+    </table>
+    {% endif %}
 </body>
 </html>
