@@ -53,3 +53,10 @@ def student_details(student_id):
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.run(host='0.0.0.0', port=port)
+@app.route('/transcript/<int:student_index>')
+def get_transcript(student_index):
+    # جلب بيانات الطالب من ملف الإكسل حسب رقم السطر
+    # df هو متغير البيانات (Dataframe) اللي عندك بالموقع
+    student_row = df.iloc[student_index].values  
+    
+    return render_template('transcript.html', row=student_row)
